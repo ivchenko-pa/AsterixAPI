@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface CharacterRepository extends MongoRepository<AsterixCharacter, String> {
     List<AsterixCharacter> findAsterixCharacterByProfessionContaining(String profession);
 }
