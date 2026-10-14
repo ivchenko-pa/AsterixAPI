@@ -27,13 +27,13 @@ public class AsterixController {
     }
 
     @PostMapping
-    public void createAsterixCharacter(@RequestBody AsterixCharacterDto asterixCharacterDto){
-        service.createAsterixCharacter(asterixCharacterDto);
+    public AsterixCharacter createAsterixCharacter(@RequestBody AsterixCharacterDto asterixCharacterDto){
+        return service.createAsterixCharacter(asterixCharacterDto);
     }
 
     @PutMapping("/{id}")
-    public void updateAsterixCharacter(@PathVariable String id, @RequestBody AsterixCharacterDto asterixCharacterDto){
-        service.updateAsterixCharacter(id, asterixCharacterDto);
+    public AsterixCharacter updateAsterixCharacter(@PathVariable String id, @RequestBody AsterixCharacterDto asterixCharacterDto) throws Exception{
+        return service.updateAsterixCharacter(id, asterixCharacterDto);
     }
 
     @DeleteMapping("/{id}")

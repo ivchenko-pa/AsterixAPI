@@ -37,20 +37,23 @@ public class AsterixService {
     }
 
 
-    public AsterixCharacterDto updateAsterixCharacter(String id, AsterixCharacterDto asterixCharacterDto) {
-        AsterixCharacter toBeUpdatedAsterixCharacter = repo.findById(id).orElse(null);
+    public AsterixCharacter updateAsterixCharacter(String id, AsterixCharacterDto asterixCharacterDto) throws Exception {
 
-        if(!Objects.isNull(toBeUpdatedAsterixCharacter)){
-            repo.save(toBeUpdatedAsterixCharacter.withAge(asterixCharacterDto.age())
-                    .withName(asterixCharacterDto.name())
-                    .withProfession(asterixCharacterDto.profession()));
+        if (repo.existsById(id)){
+            AsterixCharacter character = AsterixCharacter.builder()
+                    .id(id)
+                    .name(asterixCharacterDto.name())
+                    .age(asterixCharacterDto.age())
+                    .profession(asterixCharacterDto.profession())
+                    .build();
+            repo.save(character);
+            return character;
         }
-        return asterixCharacterDto;
-
+        throw new Exception();
     }
 
     public boolean deleteAsterixCharacter(String id){
-        if (repo.existsById(id)){
+        if (Objects.nonNull(id) && repo.existsById(id)){
             repo.deleteById(id);
             return true;
         }
